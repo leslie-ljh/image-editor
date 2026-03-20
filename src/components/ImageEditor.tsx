@@ -204,15 +204,14 @@ export default function ImageEditor() {
       
       // Fit to container while maintaining aspect ratio
       const container = containerRef.current;
-      if (container) {
-        const maxWidth = container.clientWidth - 32;
-        const maxHeight = container.clientHeight - 32;
-        const scale = Math.min(maxWidth / workingCanvas.width, maxHeight / workingCanvas.height, 1);
-        
-        displayCanvasRef.current.width = workingCanvas.width * scale;
-        displayCanvasRef.current.height = workingCanvas.height * scale;
-        displayCtx.drawImage(workingCanvas, 0, 0, displayCanvasRef.current.width, displayCanvasRef.current.height);
+      let maxWidth = 800;  // 默认值
+      let maxHeight = 600;
+
+      if (container && container.clientWidth > 0 && container.clientHeight > 0) {
+         maxWidth = container.clientWidth - 32;
+         maxHeight = container.clientHeight - 32;
       }
+     
     } catch (error) {
       console.error('Error applying adjustments:', error);
     } finally {
